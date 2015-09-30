@@ -3,12 +3,12 @@ var chai = require('chai');
 var spies = require('chai-spies');
 chai.use(spies);
 
-it('does simple math', function(){
+xit('does simple math', function(){
 	expect(2+2).to.eql(4);
 })
 
 
-it('confirms setTimeout\'s timer accuracy', function (done) {
+xit('confirms setTimeout\'s timer accuracy', function (done) {
     var start = new Date();
     setTimeout(function () {
         var duration = new Date() - start;
@@ -17,7 +17,7 @@ it('confirms setTimeout\'s timer accuracy', function (done) {
     }, 1000);
 });	
 
-it('chai spies', function () {
+xit('chai spies', function () {
     
 	var arr = [2, 4, 6];
 	function plusTwo (num){
@@ -29,7 +29,7 @@ it('chai spies', function () {
 	expect(plusTwo).to.have.been.called.exactly(3);
 });	
 
-it('will invoke a function once per element', function () {
+xit('will invoke a function once per element', function () {
     var arr = ['x','y','z'];
     function logNth (val, idx) {
         console.log('Logging elem #'+idx+':', val);
