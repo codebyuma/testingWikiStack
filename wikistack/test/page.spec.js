@@ -31,19 +31,19 @@ describe('Page model', function() {
         
 		beforeEach(function(done){
 		//do we need to be clearing out database as well?
-		//how do we clear a database
+		//how do we clear a database because it is adding the below page each time we run this test
 		Page.create({title: "newTitle", body: "someBody", tags: ["tag1", "tag2", "tag3"]}, done);
 		})
 
         describe('findByTag', function() {
             it('gets pages with the search tag', function(done) {
-            	Page.findByTag('tag1', function(er, pages){
+            	Page.findByTag('tag1', function(err, pages){
             		expect(pages).to.have.lengthOf(1)
             		done()
 			})})
 
             it('does not get pages without the search tag', function(done) {
-            	Page.findByTag('dog', function(er, pages){
+            	Page.findByTag('dog', function(err, pages){
             		expect(pages).to.have.lengthOf(0)
             		done()
             })})
@@ -51,9 +51,20 @@ describe('Page model', function() {
     });
 
     describe('Methods', function() {
+
+        beforeEach(function(done){
+            Page.create({title: "Second Title", body: "someBody", tags: ["tag1", "cat", "dog"]}, done);
+        })
+
         describe('computeUrlName', function() {
-            xit('converts non-word-like chars to underscores', function() {});
+            it('converts non-word-like chars to underscores', function(done) {
+                Page.findByTag('cat', function(err, pages){
+                    expect(pages[0].url_name).to.equal("Second_Title")
+                    done();
+                }) 
+            })
         });
+            
         describe('getSimilar', function() {
             xit('never gets itself', function() {});
             xit('gets other pages with any common tags', function() {});
