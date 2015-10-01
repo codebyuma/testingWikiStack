@@ -53,5 +53,6 @@ User = mongoose.model('User', userSchema);
 
 module.exports = {
 	Page: Page, 
-	User: User
+	User: User,
+  // db: db
 };
