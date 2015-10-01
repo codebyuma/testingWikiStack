@@ -150,13 +150,47 @@ describe('Page model', function() {
     });
 
     describe('Virtuals', function() {
-        describe('full_route', function() {
-            it('returns the url_name prepended by "/wiki/"', function() {});
+
+        beforeEach(function(done) {
+            Page.remove({}, function(err, pages){
+                //base
+                Page.create({
+                    title: "Second Title",
+                    body: "secondBody",
+                    url_name: "Second_Title",
+                    tags: ["tag1"]
+                }, done);
+            })
         });
+
+
+        describe('full_route', function() {
+            it('returns the url_name prepended by "/wiki/"', function(done) {
+                Page.findOne({url_name: "Second_Title"}, function(err, page) {
+                    expect(page.full_route).to.equal("/wiki/Second_Title");
+                    done();
+                });
+                
+            });
+        });
+
     });
 
     describe('Hooks', function() {
-        xit('calls computeUrlName before save', function() {});
+        xit('calls computeUrlName before save', function(done) {
+                
+                computeUrlName = chai.spy(Page.computeUrlName);
+                samplePage = new Page ({
+                    title: "Third Title",
+                    body: "thirdBody",
+                    tags: ["tag1"]
+                });
+                samplePage.save(function(err, page){
+                    expect(computeUrlName).to.have.been.called();
+                    done(); 
+                })
+
+        });
     });
 
 });
